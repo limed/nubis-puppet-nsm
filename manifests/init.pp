@@ -1,7 +1,7 @@
 # Class: nsm
 # ===========================
 #
-# Full description of class nsm here.
+# Installs and configures nsm
 #
 # Parameters
 # ----------
@@ -35,12 +35,12 @@
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# Ed Lim <limed@mozilla.com>
 #
 # Copyright
 # ---------
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Ed Lim.
 #
 class nsm {
 
