@@ -42,7 +42,12 @@
 #
 # Copyright 2016 Ed Lim.
 #
-class nsm {
+class nsm (
+    $ensure     = 'present',
+    $networks   = {},
+    $nsm_mailto = ""
+
+){
 
 
 }
