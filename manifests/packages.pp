@@ -90,7 +90,7 @@ class nsm::packages {
     }->
     package { 'bro-support':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${nsm::params::bro_support_package_name}"
+        source   => "/tmp/nsmpackages/${nsm::params::bro_support_package_name}",
         provider => 'rpm',
         require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::paramsbro_support_package_name}"] ],
     }->
