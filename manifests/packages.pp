@@ -71,7 +71,7 @@ class nsm::packages {
     }
 
     wget::fetch { "download ${nsm::params::supervisor_package_name}":
-        source      => "${base_url}/${nsm::params::python_supervisor_package_name}",
+        source      => "${base_url}/${nsm::params::supervisor_package_name}",
         destination => "/tmp/nsmpackages/${nsm::params::supervisor_package_name}",
         verbose     => true,
         redownload  => true,
