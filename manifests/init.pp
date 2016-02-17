@@ -78,4 +78,14 @@ class nsm (
         before => Class['nsm::packages'],
     }
 
+    $nsm_dirs = [ '/nsm', '/nsm/bro', '/opt/bro' ]
+
+    file { $nsm_dirs:
+        ensure  => $directory_ensure,
+        owner   => bro,
+        group   => bro,
+        mode    => '0744',
+        require => [ User['bro'], Group['bro']
+   }
+
 }
