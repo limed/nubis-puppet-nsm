@@ -88,4 +88,12 @@ class nsm (
         require => [ User['bro'], Group['bro'] ],
    }
 
+   file { '/var/log/supervisor':
+       ensure  => $directory_ensure,
+       owner   => root,
+       group   => root,
+       mode    => '0744',
+       require => Package['supervisor'],
+    }
+
 }
