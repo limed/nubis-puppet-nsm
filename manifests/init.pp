@@ -85,7 +85,7 @@ class nsm (
         owner   => bro,
         group   => bro,
         mode    => '0744',
-        require => [ User['bro'], Group['bro']
+        require => [ User['bro'], Group['bro'] ],
    }
 
 }
