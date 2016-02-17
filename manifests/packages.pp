@@ -92,7 +92,7 @@ class nsm::packages {
         ensure   => present,
         source   => "/tmp/nsmpackages/${nsm::params::bro_support_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::paramsbro_support_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::bro_support_package_name}"] ],
     }->
     package { 'bro-plugin-afpacket':
         ensure   => present,
