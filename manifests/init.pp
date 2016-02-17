@@ -49,5 +49,33 @@ class nsm (
 
 ){
 
+    include nsm::packages
+
+    if !($ensure in ['present', 'absent']) {
+        fail("${ensure} is not a valid parameter")
+    }
+
+    if $ensure == 'present' {
+        $file_ensure        = 'file'
+        $user_ensure        = 'present'
+        $group_ensure       = 'present'
+        $directory_ensure   = 'directory'
+    }
+    else {
+        $file_ensure        = 'absent'
+        $user_ensure        = 'absent'
+        $group_ensure       = 'absent'
+        $directory_ensure   = 'absent'
+    }
+
+    user { 'bro':
+        ensure => $user_ensure,
+        before => Class['nsm::packages'],
+    }
+
+    group { 'bro':
+        ensure => $group_ensure,
+        before => Class['nsm::packages'],
+    }
 
 }

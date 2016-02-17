@@ -14,60 +14,68 @@ class nsm::packages {
         mode   => '0755',
     }
 
-    wget::fetch { "download ${bro_package_name}":
-        source     => "/tmp/nsmpackages/${bro_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::bro_package_name}":
+        source      => "${base_url}/${nsm::params::bro_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::bro_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${bro_support_package_name}":
-        source     => "/tmp/nsmpackages/${bro_support_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::bro_support_package_name}":
+        source      => "${base_url}/${nsm::params::bro_support_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::bro_support_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${bro_plugin_afpacket_package_name}":
-        source     => "/tmp/nsmpackages/${bro_plugin_afpacket_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::bro_plugin_afpacket_package_name}":
+        source      => "${base_url}/${nsm::params::bro_plugin_afpacket_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::bro_plugin_afpacket_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${heka_package_name}":
-        source     => "/tmp/nsmpackages/${heka_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::heka_package_name}":
+        source      => "${base_url}/${nsm::params::heka_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::heka_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${heka_nsm_lua_package_name}":
-        source     => "/tmp/nsmpackages/${heka_nsm_lua_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::heka_nsm_lua_package_name}":
+        source      => "${base_url}/${nsm::params::heka_nsm_lua_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::heka_nsm_lua_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${python_meld_package_name}":
-        source     => "/tmp/nsmpackages/${python_meld_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::python_meld_package_name}":
+        source      => "${base_url}/${nsm::params::python_meld_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::python_meld_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${python_supervisor_package_name}":
-        source     => "/tmp/nsmpackages/${python_supervisor_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::python_supervisor_package_name}":
+        source      => "${base_url}/${nsm::params::python_supervisor_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::python_supervisor_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
-    wget::fetch { "download ${supervisor_package_name}":
-        source     => "/tmp/nsmpackages/${supervisor_package_name}",
-        verbose    => true,
-        redownload => true,
-        require    => File['/tmp/nsmpackages'],
+    wget::fetch { "download ${nsm::params::supervisor_package_name}":
+        source      => "${base_url}/${nsm::params::python_supervisor_package_name}",
+        destination => "/tmp/nsmpackages/${nsm::params::supervisor_package_name}",
+        verbose     => true,
+        redownload  => true,
+        require     => File['/tmp/nsmpackages'],
     }
 
     package { 'libpcap':
@@ -76,50 +84,50 @@ class nsm::packages {
 
     package { 'bro':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${bro_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::bro_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${bro_package_name}"] ]
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::bro_package_name}"] ]
     }->
     package { 'bro-support':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${bro_support_package_name}"
+        source   => "/tmp/nsmpackages/${nsm::params::bro_support_package_name}"
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${bro_support_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::paramsbro_support_package_name}"] ],
     }->
     package { 'bro-plugin-afpacket':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${bro_plugin_afpacket_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::bro_plugin_afpacket_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${bro_plugin_afpacket_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::bro_plugin_afpacket_package_name}"] ],
     }->
     package { 'heka':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${heka_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::heka_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${heka_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::heka_package_name}"] ],
     }->
     package { 'heka-nsm-lua':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${heka_nsm_lua_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::heka_nsm_lua_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${heka_nsm_lua_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::heka_nsm_lua_package_name}"] ],
     }->
     package { 'python-meld':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${python_meld_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::python_meld_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${python_meld_package_name}"] ]
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::python_meld_package_name}"] ]
     }->
     package { 'python-supervisor':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${python_supervisor_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::python_supervisor_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${python_supervisor_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::python_supervisor_package_name}"] ],
     }->
     package { 'supervisor':
         ensure   => present,
-        source   => "/tmp/nsmpackages/${supervisor_package_name}",
+        source   => "/tmp/nsmpackages/${nsm::params::supervisor_package_name}",
         provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${supervisor_package_name}"] ],
+        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::supervisor_package_name}"] ],
     }
 }
