@@ -69,8 +69,13 @@ class nsm (
     }
 
     user { 'bro':
-        ensure => $user_ensure,
-        before => Class['nsm::packages'],
+        ensure     => $user_ensure,
+        shell      => '/bin/bash',
+        home       => '/home/bro',
+        managehome => true,
+        groups     => 'bro',
+        require    => Group['bro'],
+        before     => Class['nsm::packages'],
     }
 
     group { 'bro':
