@@ -1,0 +1,7 @@
+#!/bin/bash
+
+my_hostname=$(hostname)
+
+sed -i -e "s/%%HOSTNAME%%/$my_hostname/g" /opt/bro/etc/node.cfg
+
+/etc/init.d/nsm start
