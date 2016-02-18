@@ -1,7 +1,9 @@
 ## Global BroControl configuration file.
 
+<% if @nsm_mailto %>
 # Recipient address for all emails send out by Bro and BroControl.
 MailTo = <%= @nsm_mailto %>
+<% end %>
 
 # Site-specific policy script to load. Bro will look for this in
 # $PREFIX/share/bro/site. A default local.bro comes preinstalled

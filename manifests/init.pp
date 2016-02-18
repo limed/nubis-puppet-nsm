@@ -78,7 +78,7 @@ class nsm (
         before => Class['nsm::packages'],
     }
 
-    $nsm_dirs = [ '/nsm', '/nsm/bro', '/opt/bro' ]
+    $nsm_dirs = [ '/nsm', '/nsm/bro', '/opt/bro', '/opt/bro/etc' ]
 
     file { $nsm_dirs:
         ensure  => $directory_ensure,
@@ -94,6 +94,15 @@ class nsm (
        group   => root,
        mode    => '0744',
        require => Package['supervisor'],
+    }
+
+    file { '/opt/bro/etc/broctl.cfg':
+        ensure  => $file_ensure,
+        owner   => bro,
+        group   => bro,
+        mode    => '0644',
+        content => template('nsm/broctl.cfg.erb'),
+        require => [ Package['bro'], File[$nsm_dirs] ]
     }
 
 }
