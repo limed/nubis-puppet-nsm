@@ -12,7 +12,7 @@ class nsm::supervisord {
         ensure  => file,
         owner   => root,
         group   => root,
-        mode    => '0644'
+        mode    => '0644',
         source  => 'puppet:///modules/nsm/heka/supervisor.conf',
         require => File['/etc/heka']
     }
