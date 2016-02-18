@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# chkconfig: 35 68 38
+# description: Starts heka with supervisord
+
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+NAME=hekad
+LOCK_FILE="/var/lock/subsys/${NAME}"
+SUPERVISORCTL="/usr/local/bin/supervisorctl"
+SUPERVISORD="/usr/local/bin/supervisord"
+SUPERVISOR_OPT="-c /etc/heka/supervisor.conf"
+SUPERVISOR_PIDFILE="/home/bro/run/supervisord.pid"
+RETVAL=0
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+
+start() {
+    echo -n $"Starting $NAME (using supervisord): "
+    daemon ${SUPERVISORD} ${SUPERVISOR_OPT}
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch ${LOCK_FILE}
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping ${NAME} (using supervisord): "
+    killproc ${NAME}
+    echo
+    echo -n $"Stopping supervisord: "
+    killproc -p ${SUPERVISOR_PIDFILE}
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f ${LOCK_FILE}
+    return $RETVAL
+}
+
+restart() {
+    stop
+    sleep 5
+    start
+}
+
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart)
+        restart
+    ;;
+    condrestart)
+        [ -f  ${LOCK_FILE} ] && restart
+    ;;
+    status)
+        status ${NAME}
+        RETVAL=$?
+    ;;
+    *)
+        echo $"Usage: $NAME {start|stop|restart|condrestsart|status}"
+        exit 1
+esac
+
+exit ${RETVAL}
