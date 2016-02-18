@@ -110,4 +110,13 @@ class nsm (
         require => [ Package['bro'], File[$nsm_dirs] ]
     }
 
+    file { '/opt/bro/etc/node.cfg':
+        ensure  => $file_ensure,
+        owner   => bro,
+        group   => bro,
+        mode    => '0644',
+        source  => 'puppet:///modules/nsm/node.cfg',
+        require => [ Package['bro'], File[$nsm_dirs] ]
+    }
+
 }
