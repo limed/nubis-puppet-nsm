@@ -51,7 +51,6 @@ class nsm (
 
     include nsm::packages
 
-    #validate_hash($network)
     validate_bool($manage_heka)
 
     if !($ensure in ['present', 'absent']) {
@@ -105,10 +104,6 @@ class nsm (
         require => [ Package['bro'], File[$nsm_dirs] ]
     }
 
-    if $manage_heka {
-        include nsm::hekad
-    }
-
     file { '/opt/bro/etc/node.cfg':
         ensure  => $file_ensure,
         owner   => bro,
@@ -117,5 +112,19 @@ class nsm (
         source  => 'puppet:///modules/nsm/node.cfg',
         require => [ Package['bro'], File[$nsm_dirs] ]
     }
+
+    file { '/etc/nubis.d/99-nsm-startup':
+        ensure  => $file_ensure,
+        owner   => root,
+        group   => root,
+        mode    => '0755',
+        source  => 'puppet:///modules/nsm/nsm-startup',
+        require => [ Package['bro'], Package['python-supervisor'] ],
+    }
+
+    if $manage_heka {
+        include nsm::hekad
+    }
+
 
 }
