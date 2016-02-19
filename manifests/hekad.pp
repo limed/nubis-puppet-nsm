@@ -6,7 +6,7 @@ class nsm::hekad {
        owner   => root,
        group   => root,
        mode    => '0744',
-       require => Package['python-supervisor'],
+       require => [ Package['heka'], Package['python-supervisor'] ],
     }
 
     file { '/etc/heka':
