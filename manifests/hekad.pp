@@ -40,7 +40,7 @@ class nsm::hekad {
         owner   => root,
         group   => root,
         mode    => '0644',
-        source  => 'puppet://modules/nsm/heka/mozdefencoder.lua',
+        source  => 'puppet:///modules/nsm/heka/mozdefencoder.lua',
         require => [ Package['heka'], Package['python-supervisor'] ],
     }
 
