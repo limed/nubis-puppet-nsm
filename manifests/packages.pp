@@ -123,11 +123,11 @@ class nsm::packages {
         source   => "/tmp/nsmpackages/${nsm::params::python_supervisor_package_name}",
         provider => 'rpm',
         require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::python_supervisor_package_name}"] ],
-    }->
-    package { 'supervisor':
-        ensure   => present,
-        source   => "/tmp/nsmpackages/${nsm::params::supervisor_package_name}",
-        provider => 'rpm',
-        require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::supervisor_package_name}"] ],
     }
+    #package { 'supervisor':
+    #    ensure   => present,
+    #    source   => "/tmp/nsmpackages/${nsm::params::supervisor_package_name}",
+    #    provider => 'rpm',
+    #    require  => [ File['/tmp/nsmpackages'], Wget::Fetch["download ${nsm::params::supervisor_package_name}"] ],
+    #}
 }

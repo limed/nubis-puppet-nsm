@@ -44,7 +44,6 @@
 #
 class nsm (
     $ensure         = 'present',
-    $network,
     $nsm_mailto,
     $manage_heka    = true
 
@@ -52,7 +51,7 @@ class nsm (
 
     include nsm::packages
 
-    validate_hash($network)
+    #validate_hash($network)
     validate_bool($manage_heka)
 
     if !($ensure in ['present', 'absent']) {
@@ -95,14 +94,6 @@ class nsm (
         group   => bro,
         mode    => '0744',
         require => [ User['bro'], Group['bro'] ],
-   }
-
-   file { '/var/log/supervisor':
-       ensure  => $directory_ensure,
-       owner   => root,
-       group   => root,
-       mode    => '0744',
-       require => Package['supervisor'],
     }
 
     file { '/opt/bro/etc/broctl.cfg':
@@ -112,6 +103,10 @@ class nsm (
         mode    => '0644',
         content => template('nsm/broctl.cfg.erb'),
         require => [ Package['bro'], File[$nsm_dirs] ]
+    }
+
+    if $manage_heka {
+        include nsm::hekad
     }
 
     file { '/opt/bro/etc/node.cfg':
