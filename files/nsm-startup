@@ -5,6 +5,9 @@ my_hostname=$(hostname)
 
 sed -i -e "s/%%HOSTNAME%%/$my_hostname/g" /opt/bro/etc/node.cfg
 
+# Should probably figure out a better way of doing this here
+aws s3 cp s3://nsm-data/heka.toml /etc/heka.toml
+
 su - ${bro_user} -c "/usr/local/sbin/nsmdataupdate.sh"
 su - ${bro_user} -c "/usr/local/sbin/nsmconfigsupdate.sh"
 
