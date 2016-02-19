@@ -25,4 +25,11 @@ class nsm::supervisord {
         source  => 'puppet:///modules/nsm/heka/heka-init',
         require => File['/etc/heka/supervisor.conf']
     }
+
+    service { 'hekad':
+        ensure  => running,
+        enable  => true,
+        status  => '/usr/local/bin/supervisorctl status hekad | awk \'/^hekad[: ]/{print \$2}\' | grep \'^RUNNING$\'',
+        require => File['/etc/init.d/hekad'],
+    }
 }
