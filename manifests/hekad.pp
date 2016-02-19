@@ -35,7 +35,7 @@ class nsm::hekad {
         require => File['/etc/heka/supervisor.conf']
     }
 
-    file { '/usr/share/heka/lua_encoders/mozdefencoder.lua':
+    file { '/usr/share/heka/lua_encoders/mozdef.lua':
         ensure  => file,
         owner   => root,
         group   => root,
