@@ -15,5 +15,5 @@ su - ${bro_user} -c "/opt/bro/bin/broctl install"
 su - ${bro_user} -c "/opt/bro/bin/broctl deploy"
 su - ${bro_user} -c "/opt/bro/bin/broctl restart"
 
-/etc/init.d/hekad start
+/etc/init.d/hekad restart
 #/etc/init.d/nsm start
