@@ -44,14 +44,11 @@
 #
 class nsm (
     $ensure         = 'present',
-    $nsm_mailto,
-    $manage_heka    = true
-
+    $nsm_mailto
 ){
 
     include nsm::packages
-
-    validate_bool($manage_heka)
+    include nsm::hekad
 
     if !($ensure in ['present', 'absent']) {
         fail("${ensure} is not a valid parameter")
@@ -121,10 +118,5 @@ class nsm (
         source  => 'puppet:///modules/nsm/nsm-startup',
         require => [ Package['bro'], Package['python-supervisor'] ],
     }
-
-    if $manage_heka {
-        include nsm::hekad
-    }
-
 
 }

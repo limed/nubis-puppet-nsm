@@ -2,7 +2,7 @@
 class nsm::hekad {
 
     file { '/var/log/supervisor':
-       ensure  => $directory_ensure,
+       ensure  => directory,
        owner   => root,
        group   => root,
        mode    => '0744',
@@ -35,7 +35,7 @@ class nsm::hekad {
         require => File['/etc/heka/supervisor.conf']
     }
 
-    file { '/usr/share/heka/lua_encoders':
+    file { '/usr/share/heka/lua_encoders/mozdefencoder.lua':
         ensure  => file,
         owner   => root,
         group   => root,
