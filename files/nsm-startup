@@ -1,7 +1,16 @@
 #!/bin/bash
 
+bro_user=bro
 my_hostname=$(hostname)
 
 sed -i -e "s/%%HOSTNAME%%/$my_hostname/g" /opt/bro/etc/node.cfg
 
-/etc/init.d/nsm start
+su - ${bro_user} -c "/usr/local/sbin/nsmdataupdate.sh"
+su - ${bro_user} -c "/usr/local/sbin/nsmconfigsupdate.sh"
+
+su - ${bro_user} -c "/opt/bro/bin/broctl install"
+su - ${bro_user} -c "/opt/bro/bin/broctl deploy"
+su - ${bro_user} -c "/opt/bro/bin/broctl restart"
+
+/etc/init.d/hekad start
+#/etc/init.d/nsm start

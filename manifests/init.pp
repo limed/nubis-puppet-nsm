@@ -43,13 +43,17 @@
 # Copyright 2016 Ed Lim.
 #
 class nsm (
-    $ensure     = 'present',
-    $networks   = {},
-    $nsm_mailto = ""
+    $ensure         = 'present',
+    $network,
+    $nsm_mailto,
+    $manage_heka    = true
 
 ){
 
     include nsm::packages
+
+    validate_hash($network)
+    validate_bool($manage_heka)
 
     if !($ensure in ['present', 'absent']) {
         fail("${ensure} is not a valid parameter")
@@ -110,12 +114,12 @@ class nsm (
         require => [ Package['bro'], File[$nsm_dirs] ]
     }
 
-    file { '/opt/bro/etc/nodes.cfg':
+    file { '/opt/bro/etc/node.cfg':
         ensure  => $file_ensure,
         owner   => bro,
         group   => bro,
         mode    => '0644',
-        source  => 'puppet:///modules/nsm/nodes.cfg',
+        source  => 'puppet:///modules/nsm/node.cfg',
         require => [ Package['bro'], File[$nsm_dirs] ]
     }
 
