@@ -1,13 +1,13 @@
 
 class nsm::hekad {
 
-    file { '/var/log/supervisor':
-       ensure  => directory,
-       owner   => root,
-       group   => root,
-       mode    => '0744',
-       require => [ Package['heka'], Package['python-supervisor'] ],
-    }
+    #file { '/var/log/supervisor':
+    #   ensure  => directory,
+    #   owner   => root,
+    #   group   => root,
+    #   mode    => '0744',
+    #   require => [ Package['heka'], Package['python-supervisor'] ],
+    #}
 
     file { '/etc/heka':
         ensure  => directory,
@@ -48,6 +48,6 @@ class nsm::hekad {
         ensure  => running,
         enable  => true,
         status  => '/usr/local/bin/supervisorctl status hekad | awk \'/^hekad[: ]/{print \$2}\' | grep \'^RUNNING$\'',
-        require => [ File['/var/log/supervisor'], Package['python-supervisor'], File['/etc/init.d/hekad'] ],
+        require => [ Package['python-supervisor'], File['/etc/init.d/hekad'] ],
     }
 }
