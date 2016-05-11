@@ -36,6 +36,14 @@ class nsm::hekad {
         require => [ Package['heka'], Package['python-supervisor'] ],
     }
 
+    file { '/var/log/heka-supervisor':
+        ensure  => directory,
+        owner   => root,
+        group   => root,
+        mode    => '0644',
+        require => Package['heka'],
+    }
+
     service { 'hekad':
         ensure  => running,
         enable  => true,
