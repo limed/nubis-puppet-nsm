@@ -71,6 +71,7 @@ class nsm (
         ensure     => $user_ensure,
         shell      => '/bin/bash',
         home       => '/home/bro',
+        system     => true,
         managehome => true,
         groups     => 'bro',
         require    => Group['bro'],
