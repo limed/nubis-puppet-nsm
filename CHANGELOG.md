@@ -1,5 +1,28 @@
 # Change Log
 
+## [v1.2.2](https://github.com/nubisproject/nubis-puppet-nsm/tree/v1.2.2) (2016-11-18)
+[Full Changelog](https://github.com/nubisproject/nubis-puppet-nsm/compare/v1.2.1...v1.2.2)
+
+**Closed issues:**
+
+- Create bro system user [\#8](https://github.com/nubisproject/nubis-puppet-nsm/issues/8)
+- Tag v1.2.3 release [\#7](https://github.com/nubisproject/nubis-puppet-nsm/issues/7)
+
+**Merged pull requests:**
+
+- Create bro user as a system user [\#9](https://github.com/nubisproject/nubis-puppet-nsm/pull/9) ([limed](https://github.com/limed))
+
+## [v1.2.1](https://github.com/nubisproject/nubis-puppet-nsm/tree/v1.2.1) (2016-07-30)
+[Full Changelog](https://github.com/nubisproject/nubis-puppet-nsm/compare/v1.2.0...v1.2.1)
+
+**Closed issues:**
+
+- Tag v1.2.1 release [\#5](https://github.com/nubisproject/nubis-puppet-nsm/issues/5)
+
+**Merged pull requests:**
+
+- Update CHANGELOG for v1.2.1 release [\#6](https://github.com/nubisproject/nubis-puppet-nsm/pull/6) ([tinnightcap](https://github.com/tinnightcap))
+
 ## [v1.2.0](https://github.com/nubisproject/nubis-puppet-nsm/tree/v1.2.0) (2016-07-07)
 **Closed issues:**
 
