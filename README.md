@@ -1,10 +1,10 @@
 # nsm
 
-#### Table of Contents
+## Table of Contents
 
 1. [Description](#description)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Limitations - OS compatibility, etc.](#limitations)
+2. [Usage - Configuration options and additional functionality](#usage)
+3. [Limitations - OS compatibility, etc.](#limitations)
 
 ## Description
 

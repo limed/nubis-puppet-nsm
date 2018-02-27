@@ -7,35 +7,36 @@ PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 NAME=hekad
 LOCK_FILE="/var/lock/subsys/${NAME}"
-SUPERVISORCTL="/usr/local/bin/supervisorctl"
+#SUPERVISORCTL="/usr/local/bin/supervisorctl"
 SUPERVISORD="/usr/local/bin/supervisord"
 SUPERVISOR_OPT="-c /etc/heka/supervisor.conf"
 SUPERVISOR_PIDFILE="/home/bro/run/supervisord.pid"
 RETVAL=0
 
 # Source function library.
+# shellcheck disable=SC1091
 . /etc/rc.d/init.d/functions
 
 
 start() {
     echo -n $"Starting $NAME (using supervisord): "
-    daemon ${SUPERVISORD} ${SUPERVISOR_OPT}
-    RETVAL=$?
+    daemon "${SUPERVISORD}" "${SUPERVISOR_OPT}"
+    RETVAL="$?"
     echo
-    [ $RETVAL -eq 0 ] && touch ${LOCK_FILE}
-    return $RETVAL
+    [ "$RETVAL" -eq 0 ] && touch "${LOCK_FILE}"
+    return "$RETVAL"
 }
 
 stop() {
     echo -n $"Stopping ${NAME} (using supervisord): "
-    killproc ${NAME}
+    killproc "${NAME}"
     echo
     echo -n $"Stopping supervisord: "
-    killproc -p ${SUPERVISOR_PIDFILE}
+    killproc -p "${SUPERVISOR_PIDFILE}"
     RETVAL=$?
     echo
-    [ $RETVAL -eq 0 ] && rm -f ${LOCK_FILE}
-    return $RETVAL
+    [ "$RETVAL" -eq 0 ] && rm -f "${LOCK_FILE}"
+    return "$RETVAL"
 }
 
 restart() {
@@ -55,10 +56,10 @@ case "$1" in
         restart
     ;;
     condrestart)
-        [ -f  ${LOCK_FILE} ] && restart
+        [ -f  "${LOCK_FILE}" ] && restart
     ;;
     status)
-        status ${NAME}
+        status "${NAME}"
         RETVAL=$?
     ;;
     *)
@@ -66,4 +67,4 @@ case "$1" in
         exit 1
 esac
 
-exit ${RETVAL}
+exit "${RETVAL}"
